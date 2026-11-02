@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <span class="eyebrow">01 / One image, one story</span>
+  <h1>Search the<br>NASA archive.</h1>
+  <p>Find a single image from across the universe. Enter a planet, mission, phenomenon, or place to begin.</p>
+</section>
+<section class="search-card">
+  <form class="search-form" action="{{ url_for('getSearchCriteria') }}" method="get">
+    <input type="search" name="search" placeholder="Try “Saturn”, “nebula”, “Apollo 11”…" value="{{ search_criteria|default('') }}" required aria-label="Search NASA images">
+    <button type="submit">Explore image →</button>
+  </form>
+  <p class="hint">Search results are pulled from the NASA Image and Video Library.</p>
+  {% if have_results %}
+  <article class="result">
+    <img class="result-image" src="{{ imgPath }}" alt="NASA image result for {{ search_criteria }}">
+    <div class="result-copy"><h2>MISSION NOTES</h2><p>{{ description }}</p></div>
+  </article>
+  {% endif %}
+</section>
+{% endblock %}

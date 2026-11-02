@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <span class="eyebrow">02 / Collection view</span>
+  <h1>A whole sky<br>of discoveries.</h1>
+  <p>Build a visual field of NASA archive images. Search any subject and browse the images returned.</p>
+</section>
+<section class="search-card">
+  <form class="search-form" action="{{ url_for('getSearchCriteria_adv') }}" method="get">
+    <input type="search" name="search" placeholder="Search the NASA image collection…" value="{{ search_criteria|default('') }}" required aria-label="Search NASA image collection">
+    <button type="submit">Build gallery →</button>
+  </form>
+  <p class="hint">A new collection for every search.</p>
+  {% if images is defined %}
+    {% if images %}
+    <div class="gallery" aria-label="NASA image search results">
+      {% for image in images %}<img src="{{ image }}" alt="NASA image result {{ loop.index }}" loading="lazy">{% endfor %}
+    </div>
+    {% else %}<p class="empty">No images found for that search. Try another subject.</p>{% endif %}
+  {% endif %}
+</section>
+{% endblock %}
